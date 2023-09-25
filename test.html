@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Test</title>
+    <script src="./js/pdf.js"></script>
+</head>
+<body>
+<script>
+console.log('开始PDF文件解析');
+
+function parsePDF (pdfUrl) {
+    console.log(pdfUrl + '，PDF文件加载中...');
+    var pdf = pdfjsLib.getDocument(pdfUrl);
+    console.log('PDF文件解析中...');
+    return pdf.promise.then(async function (pdf) {
+        var maxPages = pdf._pdfInfo.numPages;
+        var countPromises = [];
+        for (var j = 1; j <= maxPages; j++) {
+            var page = pdf.getPage(j);
+            var pageTexts = [];
+            pageTexts = await getPageContent(page); // 同步执行
+            countPromises.push({page: j, text: pageTexts});
+        }
+        return countPromises;
+    });
+}
+
+function getPageContent (page) {
+    return page.then(function (page) {
+        var textContent = page.getTextContent();
+        return textContent.then(function (text) {
+            return text;
+        });
+    });
+}
+
+parsePDF("pdf/test.pdf").then(function (text) {
+        console.log(JSON.stringify(text));
+        console.log('PDF文件完成解析');
+    },
+    function (reason) {
+        console.log(reason);
+    });
+</script>
+</body>
+</html>
