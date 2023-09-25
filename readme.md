@@ -1,4 +1,6 @@
-# PDF文件解析器（node环境运行）use node and pdf.js parse PDF file to json
+# use node and pdf.js parse PDF file to json
+
+[pdf.js github链接](https://github.com/mozilla/pdf.js/tree/master)
 
 测试页面 可以直接使用浏览器打开 test.html 文件进行访问，打开浏览器调试器，在 Console 中可以看到解析结果。
 

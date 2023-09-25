@@ -37,7 +37,6 @@ const args = process.argv.slice(2)
 if (args[0]) {
     /**
      * 先读取PDF文件，再转成Uint8Array数据后使用PDFJS进行解析
-     * 本地测试PDF 文件 /Users/liujianchun/Downloads/compressed.tracemonkey-pldi-09.pdf
      */
     fs.readFile(args[0], function(err, data) {
         if (err) {
